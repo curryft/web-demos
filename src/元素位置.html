@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .box { width: 70%; height: 300px; border: 1px solid #eee; overflow: auto; }
+        .box p { margin: 0; padding-bottom: .667rem; }
+
+
+    </style>
+</head>
+<body>
+<!--h:726-->
+<div style="width: 60vw;height: 500px;background-color: #0baae4;margin: 10px;padding: 10px;overflow: scroll" id="div1">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
+
+
+
+<div id="box" class="box">
+    <p>
+        正午太阳高悬，上海松江，某处二本院校男生宿舍内，电风扇正在吱呀吱呀的旋转。
+
+        　　仔细一听，还是能在风扇转动声外听到好些呼噜声……床铺凌乱外加大裤衩大背心，酷热的夏天，107男生宿舍内四位“帅哥”正在各自的床铺上酣睡。
+
+        　　忽然之间，在上铺的陈慕睁开了眼睛，他如同做噩梦惊醒一般，直接是一个激灵就坐直了身子！
+
+        　　“发生了什么？我不是被车给撞飞了？”
+
+        　　直直的盯着窗外，陈慕脸上写满了惊恐和茫然。
+
+        　　“我怎么会睡在这里？这是建桥大学？”
+
+        　　在最初的愕然之后，陈慕开始看向周围。
+
+        　　下铺是黄伟聪……红裤衩，排骨胸，还有那猥琐的长相，这正是他曾经大一的下铺舍友！
+
+        　　远点的地方，冬子，超胜，这两个家伙也都是袒胸露乳，呼呼大睡……
+
+        　　许铎和王子豪的床铺则是空着，这两货估计是一日既往的在肯德基蹭空调。
+
+        　　自己的墙上挂着伊泽瑞尔的海报，冬子的头上则是他最喜欢的大幂幂……
+
+        　　“我靠，我在做梦？”
+
+        　　陈慕被吓了一跳，额头也有汗珠微微沁出，显然是在看到这熟悉的一幕后，内心泛起了滔天巨浪！
+
+        　　陈慕狠狠的掐了一下自己的脸，确定自己是没有做梦，然后，他凭借着记忆，迅速的翻开枕头，在那里找到了自己在大一时用过的LG手机，上面的日期，正显示是2013年的6月28号！
+
+        　　“我这是穿越重生了？”
+    </p>
+</div>
+</body>
+<script>
+    var eleBox = document.getElementById('box');
+
+    if (!document.elementsFromPoint) {
+        document.elementsFromPoint = document.msElementsFromPoint;
+    }
+
+    // 当前最靠近滚动容器上边缘的元素
+    var targetEle = null;
+    // 最上边元素和滚动容器上边缘的偏移大小
+    var topPOffset = false;
+    /**
+     * 存储滚动时候最上边缘元素以及偏移大小
+     */
+    var funStorePos = function () {
+        var bounce = eleBox.getBoundingClientRect();
+        var pointX = bounce.left + eleBox.clientWidth / 2;
+        var pointY = bounce.top + 1;
+
+        targetEle = document.elementsFromPoint(pointX, pointY)[0];
+
+        if (targetEle == eleBox) {
+            topPOffset = false;
+            return;
+        }
+
+        topPOffset = Math.round(targetEle.getBoundingClientRect().top - bounce.top);
+    };
+
+    // 滚动时候记录此时最上边缘元素
+    eleBox.addEventListener('scroll', funStorePos);
+
+    // 尺寸变化时候实时修正滚动位置，使最上边缘元素永远在上边缘
+    window.addEventListener('resize', function () {
+        if (topPOffset === false) {
+            return;
+        }
+
+        var scrollTop = eleBox.scrollTop;
+        // 之前最靠近边缘元素当前的偏移等
+        var currentTopPOffset = Math.round(eleBox.getBoundingClientRect().top) - Math.round(targetEle.getBoundingClientRect().top);
+        // 滚动修正
+        eleBox.scrollTop = scrollTop - currentTopPOffset - topPOffset;
+    });
+</script>
+</html>
+
+
+<!--
+document.documentElement.scrollHeight
+766
+document.documentElement.clientHeight  视口高度
+726
+document.documentElement.offsetHeight   加上边框
+766
+
+div1.offsetHeight  不带边框
+746
+div1.clientHeight
+746
+div1.scrollHeight
+746
+
+
+div1.getBoundingClientRect()
+bottom: 736 下边坐标
+height: 726 不带边框
+left: 10
+right: 110
+top: 10
+width: 100
+x: 10
+y: 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="downloadIamge('img','ss')"></button>
+
+<button type="button" class="btn btn-primary" onclick=" download('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531201962221&di=26644c11ff6a3670f9d74f6c745a2d0c&imgtype=0&src=http%3A%2F%2Fs10.sinaimg.cn%2Fmw690%2F006LDoUHzy7auXEvyzLd9%26690')" >下载</button>
+
+<a href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531201962221&di=26644c11ff6a3670f9d74f6c745a2d0c&imgtype=0&src=http%3A%2F%2Fs10.sinaimg.cn%2Fmw690%2F006LDoUHzy7auXEvyzLd9%26690" download="">下载</a>
+</body>
+<script src="./js/jquery.js"></script>
+<script>
+    function download(src) {
+        var a = document.createElement('a');
+        a.setAttribute("href", src);
+        a.setAttribute("download", "");
+
+
+        var evObj = document.createEvent('MouseEvents');
+        evObj.initMouseEvent( 'click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
+        a.dispatchEvent(evObj);
+
+    };
+
+    // var funDownload = function (domImg, filename) {
+    //     // 创建隐藏的可下载链接
+    //     var eleLink = document.createElement('a');
+    //     eleLink.download = filename;
+    //     eleLink.style.display = 'none';
+    //     // 图片转base64地址
+    //     var canvas = document.createElement('canvas');
+    //     var context = canvas.getContext('2d');
+    //     var width = domImg.natureWidth;
+    //     var height = domImg.natureHeight;
+    //     context.drawImage(domImg, 0, 0);
+    //     // 如果是PNG图片，则context.toDataURL('image/png')
+    //     eleLink.href = context.toDataURL('image/jpeg');
+    //     // 触发点击
+    //     document.body.appendChild(eleLink);
+    //     eleLink.click();
+    //     // 然后移除
+    //     document.body.removeChild(eleLink);
+    // };
+
+    // function downloadIamge(selector, name) {
+    //     var image = new Image()
+    //     // 解决跨域 Canvas 污染问题
+    //     image.setAttribute('crossOrigin', 'anonymous')
+    //     image.setAttribute('Access-Control-Allow-Origin', '*')
+    //     image.onload = function () {
+    //         var canvas = document.createElement('canvas')
+    //         canvas.width = image.width
+    //         canvas.height = image.height
+    //
+    //         var context = canvas.getContext('2d')
+    //         context.drawImage(image, 0, 0, image.width, image.height)
+    //         var url = canvas.toDataURL('image/png')
+    //
+    //         // 生成一个a元素
+    //         var a = document.createElement('a')
+    //         // 创建一个单击事件
+    //         var event = new MouseEvent('click')
+    //
+    //         // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+    //         a.download = name || '下载图片名称'
+    //         // 将生成的URL设置为a.href属性
+    //         a.href = url
+    //
+    //         // 触发a的单击事件
+    //         a.dispatchEvent(event)
+    //     }
+    //
+    //     image.src = document.querySelector(selector).src
+    // }
+
+</script>
+</html>
+
+

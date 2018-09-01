@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    /*.nav{*/
+        /*background-color: #d64078;*/
+        /*color: black*/
+
+    /*;*/
+        /*border-radius: .5em;*/
+        /*padding: .2em 0;*/
+        /*position: relative;*/
+        /*margin: 0 1.5em;*/
+        /*width: 10em;*/
+        /*display: inline-block;*/
+        /*text-decoration: none;*/
+        /*border: solid #b03060 1px;*/
+        /*border-bottom: solid #b03060 4px;*/
+        /*text-shadow: 0px 2px 0 #b03060;*/
+        /*-webkit-transition: all 0.1s ease-out;  !* Safari 3.2+, Chrome *!*/
+        /*-moz-transition: all 0.1s ease-out;  !* Firefox 4-15 *!*/
+        /*-o-transition: all 0.1s ease-out;  !* Opera 10.5–12.00 *!*/
+        /*transition: all 0.1s ease-out;  !* Firefox 16+, Opera 12.50+ *!*/
+    /*}*/
+
+    /*.nav:active {*/
+        /*border-bottom: solid #b03060 4px;*/
+        /*top: 4px;*/
+        /*-webkit-transition: all 0 ease-out;  !* Safari 3.2+, Chrome *!*/
+        /*-moz-transition: all 0 ease-out;  !* Firefox 4-15 *!*/
+        /*-o-transition: all 0 ease-out;  !* Opera 10.5–12.00 *!*/
+        /*transition: all .5 ease-out;  !* Firefox 16+, Opera 12.50+ *!*/
+    /*}*/
+    /*#nav1{*/
+
+    /*}*/
+    /*#hh{*/
+        /*background-color: deeppink;*/
+        /*width:200px;*/
+        /*margin:25%;*/
+        /*border:22px dashed yellow;*/
+        /*padding:22px;*/
+    /*}*/
+    .box{width: 600px; height: 200px;background: #f5f5f5}
+    .box1{width: 600px;height: 200px;background: #ccc;margin-top: 80px;}
+    .hover-border{display: inline-block;position: absolute;z-index: 100}
+
+    .left-right-border{height: 0;}
+
+    .left-border{ left: 0px;}
+    .right-border{ right: 0px;bottom: 0px;}
+    .left-right-top-bottom-border{width: 0;}
+    .left-top-border{right: 50%;top: 0px;}
+    .left-bottom-border{left: 0px;bottom: 0px;}
+    .right-top-border{right: 0px;top: 0px;}
+    .right-bottom-border{left: 50%;bottom: 0px;}
+
+</style>
+<body>
+<!--<div style="text-align: center">-->
+<!--<a href="" class="nav" id="nav1">开始</a>-->
+<!--</div>-->
+<!--<div id="hh" style="background-color: #0e83cd"><span>ss</span><br>-->
+    <!--<span>s</span>-->
+<!--</div>-->
+<!--<div style="background-color: red">ss</div>-->
+<!--<button style="height: 100px;width: 100px"></button>-->
+<!--<div class="box"></div>-->
+<!--<div class="box1"></div>-->
+<!--<ul id="ul3">-->
+    <!--<li>1</li>-->
+    <!--<li>2</li>-->
+    <!--<li>3</li>-->
+<!--</ul>-->
+<div id="test" class="bd user dis">aq</div>
+<!--<div id="test">这是一个测试</div>-->
+<a href="aa"></a>
+<div id="myDiv" data-attribute1="value" data-attribute2="value2" data-attribute3="value3">在标签里设置多个自定义属性</div>
+
+
+<form method="post" id="myForm" novalidate>
+    <ul>
+        <li><input type="radio" name="color" value="red" readonly>Red</li>
+        <li><input type="text" name="color" value="red" autofocus id="text"></li>
+        <li><input type="text" name="color" value="red" readonly></li>
+        <li>
+            <select id="selectbox" name="loc" >
+                <option value="ss">ss</option>
+                <option value="ssq">ssq</option>
+                <option value="sss">sss</option>
+            </select>
+        </li>
+        <li>
+            <select id="selectbox1" name="loc1" >
+                <option value="ww">ww</option>
+                <option value="ee">ee</option>
+                <option value="rr">rr</option>
+            </select>
+        </li>
+        <li><input type="text" pattern="\d+" name="count" required id="count" max="3" min="0"></li>
+    </ul>
+
+</form>
+<div class="editable" id="richedit" contenteditable="true" style="height: 100px;width: 100px;background-color: red"></div>
+</body>
+<script>
+
+let text = document.getElementById('text');
+
+text.addEventListener('copy',function (ev) {
+    ev.preventDefault()
+    // ev.clipboardData.clearData('text/plain')
+})
+text.addEventListener('paste',function (ev) {
+    // ev.clipboardData.clearData('text/plain')
+    console.log(ev.clipboardData.getData('text/plain'));
+    ev.preventDefault()
+})
+
+
+
+
+//强制只能输入数字
+// text.addEventListener('keypress',function (ev) {
+//     let charCode = ev.charCode;
+//     if(!/\d/.test(String.fromCharCode(charCode))){
+//         ev.preventDefault()
+//     }
+// })
+
+//选择文本
+// text.setSelectionRange(0,2);
+//     取得选择的文本
+// text.addEventListener('select',function (ev) {
+//     //取得选择的文本
+//     console.log(text.value.substring(text.selectionStart,text.selectionEnd));
+// })
+
+//自动复制
+/*
+<script type="text/javascript">
+    function copyUrl2()
+    {
+        var Url2=document.getElementById("biao1");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("已复制好，可贴粘。");
+    }
+ */
+    // 双向绑定
+
+    var view = document.getElementById("test");
+    var data = {};
+    var i=0;
+    Object.defineProperty(data, "b", {
+        set: function(newValue) {
+            //当data.b的值改变的时候更新＃test的视图
+            view.textContent=newValue;
+        },
+        get: function() {
+        }
+    });
+    setInterval(function(){
+        i++;
+        data["b"] = "data.b的值更新了，我要更新视图"+i;
+    },1000);
+
+    //
+    // let obj = {name:'aa'}
+    // console.log(obj.hasOwnProperty('name'));
+    // console.log(obj.propertyIsEnumerable('name'));
+    // console.log(obj.toLocaleString('name'));
+    // console.log(obj.valueOf());
+
+
+    // let num = -18;
+    // let num1 = ~num;
+    // console.log(num1.toString());
+
+    // let a = -2;
+    // console.log(a<<5);
+    //
+    // let b = false || '13'
+    // console.log(b);
+
+    // console.log(Infinity * Infinity);
+    // var a=undefined;
+    // var b=null;
+    // var c='www';
+    // console.log(c.toString()    );
+    //
+    //
+    //
+    // function isTwo(val) {
+    //     val>>1
+    // }
+
+    // var color = 'blue'
+    // // console.log(this);
+    // function changeCo() {
+    //     var an = 'red';
+    //     console.log(this);
+    //     function swap() {
+    //         // console.log(this);
+    //         var tem = an;
+    //         an = color;
+    //         color = tem;
+    //     }
+    //     swap();
+    // }
+    // changeCo();
+    //
+
+    //深复制
+    // let myList = document.getElementById('ul3');
+    // let deepList = myList.cloneNode(true)
+    // console.log(deepList);
+    // let shallowList = myList.cloneNode();
+    // console.log(shallowList);
+</script>
+</html>

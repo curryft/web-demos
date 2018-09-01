@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            flex: 2;
+        }
+        #main {
+            flex: 5;
+        }
+        button {
+            position: relative;
+            display: block;
+            width: 13em;
+            height: 3em;
+            margin: 2em;
+            border: none;
+            outline: none;
+            letter-spacing: .2em;
+            font-weight: bold;
+            background: #dfdfdf;
+            cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+            border-radius: 2px;
+        }
+        button:nth-child(2) {
+            color: #fff;
+            background: #4285f4;
+        }
+        button:nth-child(3) {
+            color: #fff;
+            background: #00bad2;
+        }
+        button:nth-child(4) {
+            color: #fff;
+            background: #ff8a80;
+        }
+        .ripple {
+            position: absolute;
+            background: rgba(0,0,0,.15);
+            border-radius: 100%;
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple .75s ease-out;
+
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <h1>Android L Ripple Effect</h1>
+    <div id="main">
+        <!--<button id="button">BUTTON <span class="ripple" id="haha" style="width: 156px; height: 156px;"></span></button>-->
+        <button id="button">BUTTON </button>
+        <!--<button>BUTTON</button>-->
+        <!--<button>BUTTON</button>-->
+        <!--<button>BUTTON</button>-->
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script>
+
+    $('#button').on('click',function(e){
+        console.log(e);
+        var offset = $(this).offset();
+        var target = e.target;
+        if (target.tagName.toLowerCase() !== 'button') return false; //非button 则阻止
+        var rect = target.getBoundingClientRect();
+        var x = e.pageX;
+        var y = e.pageY;
+        var ripple = $('<span class="ripple" id="haha"></span>');
+        ripple.css('width',Math.max(rect.width,rect.height));
+        ripple.css('height',Math.max(rect.width,rect.height));
+        console.log(rect);
+        ripple.appendTo(target).css({
+            // left: (x  - offset.left - rect.left - ripple.width()/2) + 'px',
+            left:(x - rect.left - rect.width/2) + 'px',
+            top:(y - rect.bottom - rect.height) + 'px'
+            // top : (y - offset.left - rect.top - ripple.height()/2) + 'px'
+        });
+        let a = document.getElementById('haha')
+        // a.addEventListener('DOMNodeRemoved',function (event) {
+        //     console.log(event);
+        // })
+        // a.addEventListener('animationend',myFun)
+        //
+        // function myFun() {
+        //     a.remove();
+        //     // a.parentNode.removeChild(a)
+        // }
+        // window.addEventListener('touchstart',function (ev) {
+        //     console.log(ev);
+        // })
+        // window.addEventListener('touchmove',function (ev) {
+        //     console.log(ev);
+        // })
+        // window.addEventListener('touchend',function (ev) {
+        //     console.log(ev);
+        // })
+
+
+        // let a = document.getElementById('haha')
+        // console.log(a);
+        // console.log(x);
+        // console.log(rect);
+        // let left = (x  - offset.left - rect.left - rect.width/2) + 'px';
+        // a.style.left =  left;
+        // a.style.top = (y - offset.left - rect.top - rect.width/2) + 'px'
+        // a.style.animation = 'ripple .75s ease-out'
+        // // a.style.animationPlayState = 'running'
+        // a.addEventListener('animationend',myFun)
+        // function myFun() {
+        //     a.style.animation = ''
+        //
+        // }
+    })
+
+
+</script>
+</html>

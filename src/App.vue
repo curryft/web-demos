@@ -1,21 +1,31 @@
 <template>
   <div id="app">
-    <div class="title">F12，打开控制台，通过console查看数据变化</div>
+    <!--<div class="title">F12，打开控制台，通过console查看数据变化</div>-->
     <keep-alive>
+
         <router-view v-if="$route.meta.keepAlive">
             <!-- 这里是会被缓存的视图组件，比如 page1,page2 -->
+
         </router-view>
+
     </keep-alive>
+
 
     <router-view v-if="!$route.meta.keepAlive">
         <!-- 这里是不被缓存的视图组件，比如 page3 -->
+
     </router-view>
   </div>
 </template>
 
 <script>
+import Page1 from "./components/page1";
+import Page2 from "./components/page2";
+
 export default {
-  name: "app"
+
+
+    name: "app"
 };
 </script>
 
@@ -26,7 +36,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 .title {
   font-size: 20px;

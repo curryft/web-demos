@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>弹性小球</title>
+    <script type="text/javascript">
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d4bfa6b63697ac0fb779b4ebd7a1ba55";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        img {
+            position: absolute;
+            left: -99999px;
+        }
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            /*background: #1d2023;*/
+            color: #52c660;
+            text-align: center;
+            width: 100%;
+            line-height: 3;
+            margin: 0;
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        /* Normal Track */
+        input[type="checkbox"].ios-switch + span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;	height: 20px;
+            border: 1px solid rgba(0,0,0,.4);
+            border-radius: 999px;
+            background-color: rgba(0, 0, 0, 0.1);
+            -webkit-transition-duration: .4s;
+            -webkit-transition-property: background-color, box-shadow;
+            box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
+            margin: 15px 1.2em 15px 2.5em;
+        }
+
+        /* Checked Track (Blue) */
+        input[type="checkbox"].ios-switch:checked + span {
+            width: 40px;
+            background-position: 0 0;
+            background-color: #3b89ec;
+            border: 1px solid #0e62cd;
+            box-shadow: inset 0 0 0 10px rgba(59,137,259,1);
+        }
+
+        /* Green Track */
+        input[type="checkbox"].green.ios-switch:checked + span {
+            background-color: #00e359;
+            border: 1px solid rgba(0, 162, 63,1);
+            box-shadow: inset 0 0 0 10px rgba(0,227,89,1);
+        }
+
+        /* Normal Knob */
+        input[type="checkbox"].ios-switch + span > span {
+            display: inline-block;
+            float: left;
+            width: 18px; height: 18px;
+            border-radius: inherit;
+            background: #ffffff;
+            -webkit-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+            -webkit-transition-duration: 0.4s;
+            -webkit-transition-property: transform, background-color, box-shadow;
+            -moz-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+            -moz-transition-duration: 0.4s;
+            -moz-transition-property: transform, background-color;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            margin-top: 1px;
+            margin-left: 1px;
+        }
+
+        /* Checked Knob (Blue Style) */
+        input[type="checkbox"].ios-switch:checked + span > span {
+            -webkit-transform: translate3d(20px, 0, 0);
+            -moz-transform: translate3d(20px, 0, 0);
+            background-color: #ffffff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
+        }
+
+    </style>
+</head>
+<body>
+<!--<img src="http://7xlkda.com1.z0.glb.clouddn.com/helkyle-avatar.jpg" alt="" />-->
+<div  id='header'>
+    <label><input id='checkbox' type="checkbox" class="ios-switch green"><span><span></span></span>显示辅助线</label>
+</div>
+<canvas id="canvas"></canvas>
+<script src="./js/tween1.js" charset="utf-8"></script>
+<script>
+    (function(window) {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width = window.innerWidth;
+        var height = canvas.height = window.innerHeight;
+
+        var ballRadius = 40;
+        var minRadius = ballRadius * 0.8;
+        var drawRadius = ballRadius;
+        var isDragging = false;
+        var dragEnd = false;
+
+        var isEscape = false;
+        var distance = 0;
+        var x1, x2, x3, x4, y1, y2, y3 ,y4;
+        var cx1, cx2, cy1, cy2;
+        var angle = 0;
+
+        var showLine = false;
+
+        var tween = null;
+        var bounceTime = 600;
+        var bounceTimer = null;
+
+        var centerPos = {
+            x: width * 0.5,
+            y: height * 0.5
+        };
+        var mousePos = {
+            x: width * 0.5,
+            y: height * 0.5
+        };
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(centerPos.x, centerPos.y, drawRadius, 0, Math.PI * 2);
+            ctx.fillStyle = '#ea6d9e';
+            ctx.fill();
+        }
+        function drawDragBall() {
+            if (!dragEnd) {
+                ctx.beginPath();
+                ctx.arc(mousePos.x, mousePos.y, drawRadius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ea6d9e';
+                ctx.fill();
+            }
+        }
+        function drawLine() {
+            // if (isDragging) {
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x3, y3);
+
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x4, y4);
+            ctx.strokeStyle = '#444';
+            ctx.stroke();
+            // }
+        }
+        function drawBezier() {
+            // && !isEscape
+            if (!dragEnd) {
+                ctx.beginPath();
+                ctx.moveTo(x1,y1);
+                ctx.quadraticCurveTo(cx1, cy1, x3,y3);
+                ctx.lineTo(x4,y4);
+                ctx.quadraticCurveTo(cx2, cy2, x2,y2);
+                ctx.lineTo(x1,y1);
+                ctx.fillStyle = '#ea6d9e';
+                ctx.fill();
+            }
+        }
+        function init() {
+            addEventListener();
+            requestAnimationFrame(loop);
+        }
+
+        function touchstart(event) {
+            event.preventDefault();
+            tween && tween.stop();
+
+            mousePos.x = event.pageX ||event.touches[0].pageX;
+            mousePos.y = event.pageY ||event.touches[0].pageY;
+            distance = Math.sqrt(Math.pow((mousePos.x - centerPos.x), 2) +
+                Math.pow((mousePos.y - centerPos.y),2));
+            if (distance < ballRadius) {
+                dragEnd = false;
+                isDragging = true;
+            }
+        }
+        function touchmove(event) {
+            if (isDragging) {
+                event.preventDefault();
+                mousePos.x = event.pageX || event.touches[0].pageX;
+                mousePos.y = event.pageY || event.touches[0].pageY;
+
+                calDistance();
+
+                if (mousePos.x <= 0 || mousePos.y <= 0 || mousePos.x >= width || mousePos.y >= height) {
+                    touchend();
+                }
+            }
+
+
+        }
+        function touchend() {
+            isDragging = false;
+
+            // 选择缓动函数
+            var bounce_animate_type = TWEEN.Easing.Elastic.Out;
+
+            // 调用Tween.js，声明开始和结束位置。
+            tween = new TWEEN.Tween(mousePos)
+                .to(centerPos, bounceTime)
+                .easing(bounce_animate_type)
+                .onUpdate(function() {
+                    calDistance();
+                })
+                .onComplete(function() {
+                    dragEnd = true;
+                    cancelAnimationFrame(bounceTimer);
+                })
+                .start();
+            bounce();
+        }
+        function bounce(time) {
+            // drawRadius = ballRadius;
+            bounceTimer = requestAnimationFrame(bounce);
+            TWEEN.update(time);
+        }
+        function calDistance() {
+            distance = Math.sqrt(Math.pow((mousePos.x - centerPos.x), 2) +
+                Math.pow((mousePos.y - centerPos.y),2));
+        }
+        function changeSize() {
+            // if (distance < ballRadius + 500) {
+            //     var rate = (1 - distance / ballRadius * 0.5);
+            //     isEscape = false;
+            //     drawRadius = ballRadius * rate;
+            // } else{
+            //     isEscape = true;
+            // }
+
+            var rate = (1 - distance / ballRadius * 0.5);
+            isEscape = false;
+            drawRadius = ballRadius * rate;
+            if (drawRadius < minRadius) {
+                drawRadius = minRadius;
+            }
+        }
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            centerPos = {
+                x: width * 0.5,
+                y: height * 0.5
+            }
+            mousePos = {
+                x: width * 0.5,
+                y: height* 0.5,
+            }
+        }
+        function addEventListener() {
+            window.addEventListener('resize', resize);
+            canvas.addEventListener('touchstart', touchstart);
+            canvas.addEventListener('touchmove', touchmove);
+            canvas.addEventListener('touchend', touchend);
+
+            canvas.addEventListener('mousedown', touchstart);
+            canvas.addEventListener('mousemove', touchmove);
+            canvas.addEventListener('mouseup', touchend);
+        }
+        function calPos() {
+            cx1 = (x1 + x4) / 2;
+            cy1 = (y1 + y4) / 2;
+            cx2 = (x2 + x3) / 2;
+            cy2 = (y2 + y3) / 2;
+
+
+            angle = Math.atan((centerPos.x - mousePos.x)/(centerPos.y - mousePos.y));
+
+            var y = drawRadius * Math.sin(angle);
+            var x = Math.sqrt(Math.pow(drawRadius, 2) - Math.pow(y, 2));
+
+            y1 = centerPos.y - y;
+            x1 = centerPos.x + x;
+
+            y2 = centerPos.y + y;
+            x2 = centerPos.x - x;
+
+            y3 = mousePos.y - y;
+            x3 = mousePos.x + x;
+
+            y4 = mousePos.y + y;
+            x4 = mousePos.x - x;
+        }
+        function loop() {
+            ctx.clearRect(0, 0, width, height);
+            calPos();
+            changeSize();
+            drawBall();
+            drawDragBall();
+            if (document.getElementById('checkbox').checked) {
+                drawLine();
+            }
+            drawBezier();
+            requestAnimationFrame(loop);
+        }
+        init();
+    })(window);
+
+</script>
+</body>
+</html>

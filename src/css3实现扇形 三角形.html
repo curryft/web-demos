@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .sector {
+            width: 0px;
+            height: 0px;
+            border-width: 50px;
+            border-style: solid;
+            border-color: #f00 transparent transparent transparent;
+            border-radius: 50px;
+        }
+        .box{
+            box-sizing: content-box;
+            background-color: red;
+            width: 100px;
+            padding: 0;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button class="button"><span>haha</span></button>
+    <div class="sector"></div>
+
+    <div class="box  box1">ssss</div>
+
+</div>
+</body>
+<script>
+    let reg = new RegExp('(^|\\s)' + 'box' + '(\\s|$)')
+    // let reg = new RegExp('(^|\\s)' + 'box2' + '(\\s|$)')
+    let box = document.getElementsByClassName('box');
+    console.log(reg.test(box[0].className));
+    // console.log(box[0].className.split(' '));
+
+    // document.querySelector('.button').onmousemove = (e) => {
+    //
+    //     const x = e.pageX - e.target.offsetLeft
+    //     const y = e.pageY - e.target.offsetTop
+    //
+    //     e.target.style.setProperty('--x', `${ x }px`)
+    //     e.target.style.setProperty('--y', `${ y }px`)
+    //
+    // }
+
+    // function queryUrlParameter(str) {
+    //     let obj = {}
+    //     let reg = /([^?=&#]+)=([^?=&#]+)/g;
+    //     str.replace(reg, function () {
+    //         // console.log(arguments[1]);
+    //         console.log(arguments[2]);
+    //         obj[arguments[1]] = arguments[2]
+    //         // obj.b = arguments[2]
+    //     })
+    //     //如果加上hash
+    //     // reg = /#([^?&=#]+)/g
+    //     // if (reg.test(str)) {
+    //     //     str.replace(reg, function () {
+    //     //         obj.hash = arguments[1]
+    //     //     })
+    //     // }
+    //     return obj
+    // }
+    //
+    // console.log(queryUrlParameter('http://www.baidu.com?a=1&b=2#12222'))
+
+
+
+</script>
+</html>

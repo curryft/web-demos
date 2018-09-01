@@ -4,6 +4,8 @@ import index from '@/components/index'
 import page1 from '@/components/page1'
 import page2 from '@/components/page2'
 import page3 from '@/components/page3'
+import page4 from '@/components/page4'
+import page5 from '@/components/page5'
 
 Vue.use(Router)
 
@@ -38,6 +40,22 @@ export default new Router({
             path: '/page3',
             name: 'page3',
             component: page3,
+            meta: {
+                keepAlive: false, // 此组件不需要被缓存
+            }
+        },
+        {
+            path: '/page4',
+            name: 'page4',
+            component: page4,
+            meta: {
+                keepAlive: false, // 此组件不需要被缓存
+            }
+        },
+        {
+            path: '/page5',
+            name: 'page5',
+            component: page5,
             meta: {
                 keepAlive: false, // 此组件不需要被缓存
             }

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html, body {
+        width: 100%;
+    }
+
+    body {
+        font-size: 40px;
+        font-family: 'Bungee Shade', cursive;
+        color: #222;
+        background: #222;
+    }
+
+    .box {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        float: left;
+    }
+    .box:hover .text{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+        transition-duration: 140ms;
+    }
+    .box:hover .border{
+        transform: scale(0.94);
+        transition-duration: 140ms;
+    }
+    .box:hover .image-wrap {
+        transform: scale(1);
+        opacity: 1;
+        transition-duration: 140ms;
+        }
+
+
+    /*&:hover {*/
+    /*.border {*/
+        /*transform: scale(0.94);*/
+        /*transition-duration: 140ms;*/
+    /*}*/
+
+    /*.text {*/
+        /*opacity: 1;*/
+        /*transform: translate3d(0,0,0);*/
+        /*transition-duration: 140ms;*/
+    /*}*/
+
+    /*.image-wrap {*/
+        /*transform: scale(1);*/
+        /*opacity: 1;*/
+        /*transition-duration: 140ms;*/
+    /*}*/
+    /*}*/
+    /*}*/
+    .box:hover{
+
+    }
+
+    .border, .text, .image {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .image-wrap {
+        position: absolute;
+        width: 130%;
+        height: 130%;
+        left: -15%;
+        top: -15%;
+        transform: scale(0.8);
+        transition: 280ms ease-out;
+        pointer-events: none;
+        opacity: 0.74;
+    }
+
+    .border {
+        left: -30px;
+        top: -30px;
+        border: 30px solid #222;
+        box-sizing: content-box;
+        transition: 360ms ease-in-out;
+    }
+
+    .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translate3d(0, -4%, 0);
+        transition: 280ms ease-out;
+        text-align: center;
+    }
+
+    .unsplash-info {
+        background: #111;
+        color: #fff;
+        width: 100%;
+        position: fixed;
+        bottom: 0px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        padding: 2px 8px;
+
+    }
+    a {
+        text-decoration: none;
+        color: #eee;
+    }
+    .image {
+        background-size: cover;
+    }
+
+    /* box sizing */
+    .box {
+        width: 100%;
+        height: 100vw;
+        float: left;
+    }
+
+    @media (min-width: 500px) {
+        .box {
+            width: 50%;
+            height: 50vw;
+        }
+    }
+
+    @media (min-width: 800px) {
+        .box {
+            width: 33.333333%;
+            height: 33.33333vw;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .box {
+            width: 25%;
+            height: 25vw;
+        }
+    }
+
+    /* image backgrounds */
+    .image-0 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_0.jpg);
+    }
+
+    .image-1 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_1.jpg);
+    }
+
+    .image-2 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_2.jpg);
+    }
+
+    .image-3 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_3.jpg);
+    }
+
+    .image-4 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_4.jpg);
+    }
+
+    .image-5 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_5.jpg);
+    }
+
+    .image-6 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_6.jpg);
+    }
+
+    .image-7 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_7.jpg);
+    }
+
+    .image-8 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_8.jpg);
+    }
+
+    .image-9 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_9.jpg);
+    }
+
+    .image-10 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_10.jpg);
+    }
+
+    .image-11 {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_11.jpg);
+    }
+
+
+
+</style>
+<body>
+
+<div class="box">
+    <div class="image-wrap">
+        <div class="image image-0"></div>
+    </div>
+    <div class="border"></div>
+    <div class="text">
+        <span>Sugar plum</span>
+    </div>
+</div>
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-1"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>apple pie</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-2"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>gummy bears</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-3"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>sesame snaps</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-4"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>chupa chups</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-5"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>chocolate cookie</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-6"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>cheescake muffin</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-7"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>sweet toffee</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-8"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>carrot cake</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-9"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>lollipop</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-10"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>macaroon</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="box">-->
+    <!--<div class="image-wrap">-->
+        <!--<div class="image image-11"></div>-->
+    <!--</div>-->
+    <!--<div class="border"></div>-->
+    <!--<div class="text">-->
+        <!--<span>lemon tart</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="unsplash-info">all images in this demo are from <a target="_blank" href="https://unsplash.com">unsplash.com</a></div>
+</body>
+<script>
+    //初始化鼠标的x和y的坐标
+    var mousePos = {
+        x: -10,
+        y: -10
+    };
+
+    //选择图片所在的节点元素并缓存起来
+    var boxElements = document.getElementsByClassName('box');
+
+    // 把所有的图片节点存入一个名为 boxes 的数组，以及它的位置信息比如宽等尺寸信息
+    var boxes = [];
+    for (var i = 0; i < boxElements.length; i++) {
+        boxes.push({
+            el: boxElements[i],
+            targetX: 0,
+            targetY: 0,
+            prevX: 0,
+            prevY: 0,
+            x: 0,
+            y: 0,
+            left: boxElements[i].offsetLeft,
+            top: boxElements[i].offsetTop,
+            size: boxElements[i].offsetWidth
+        })
+    }
+
+    function mousemove(e) {
+        // 实时监听鼠标的坐标位置
+        mousePos.x = e.pageX;
+        mousePos.y = e.pageY;
+    }
+
+    function updateBox(box) {
+        // 检测鼠标是否在图片所在的元素区域内，这里主要是使用鼠标的位置和图片元素区域与浏览器左边距离的对比来判断，如果大于则表示鼠标是在元素区域内，则触发鼠标的hover事件
+        if (mousePos.x > box.left && mousePos.x < (box.left+box.size) &&
+            mousePos.y > box.top && mousePos.y < (box.top+box.size)) {
+            // 下面代码是用来获取鼠标在图片区域中心点到图片边界的距离的值
+            box.targetX = (box.size/2 - (mousePos.x - box.left)) * 0.1;
+            box.targetY = (box.size/2 - (mousePos.y - box.top)) * 0.1;
+        } else {
+            // 如果鼠标不再图片区域内，则设为0
+            box.targetX = 0;
+            box.targetY = 0;
+        }
+
+        // 获取lerping 效果所需要的值，详细分析可以去下面的链接看看
+        // http://codepen.io/rachsmith/post/animation-tip-lerp
+        box.x += (box.targetX - box.x)*0.2;
+        box.y += (box.targetY - box.y)*0.2;
+
+        // 检测box.x的值的绝对值，是否大于.001，
+        if(Math.abs(box.x) < .001) box.x = 0;
+        if(Math.abs(box.y) < .001) box.y = 0;
+
+        // 由于视差滚动效果是使用css的transform来实现，所以要实时更新图片的transform的值
+        if (box.prevX !== box.x && box.prevY !== box.y) {
+            // update css of image element
+            box.el.children[0].children[0].style.transform = 'translate3d('+box.x+'px, '+box.y+'px, 0)';
+        }
+
+        // 每次更新的时候，缓存一次
+        box.prevX = box.x;
+        box.prevY = box.y;
+    }
+
+    function loop() {
+        // in the loop - updated each of the boxes
+        for (var i = 0, l = boxes.length; i < l; i++) {
+            updateBox(boxes[i]);
+        }
+        requestAnimationFrame(loop);
+    }
+
+    function resize() {
+        // the box positions/sizes have updated on resize, so they need to be
+        // reset
+        for (var i = 0; i < boxes.length; i++) {
+            boxes[i].left = boxes[i].el.offsetLeft;
+            boxes[i].top = boxes[i].el.offsetTop;
+            boxes[i].size = boxes[i].el.offsetWidth;
+        }
+    }
+
+    // attach the mouse event listener to the document
+    document.addEventListener('mousemove', mousemove);
+    // listen for resize event, so box sizes can be updated
+    window.addEventListener('resize', resize);
+    // run the animation loop
+    loop();
+
+
+</script>
+</html>

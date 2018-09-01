@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数字滚动效果 jQuery插件</title>
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            background-color: #F6F6F6;
+            font-weight: normal;
+            font-family: "Microsoft YaHei";
+            color: #333333;
+        }
+        .runNum{
+            margin: 0 auto;
+            padding: 0;
+            overflow: hidden;
+            height: 50px;
+            line-height: 50px;
+            border-top: #CCCCCC solid 1px;
+            border-bottom: #CCCCCC solid 1px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .runNum>li{
+            list-style: none;
+            width: 40px;
+            float: left;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;">数字滚动效果 jQuery插件</h2>
+<div style="margin: 50px auto;width: 320px;font-size:44px;">
+    <ul class="runNum" id="test"></ul>
+</div>
+<div style="text-align: center">
+<input type="text" style="margin: 10px auto " id="toValue" />
+    <button id="send">变！</button>
+</div>
+
+<h4 style="text-align: center;">&copy;2017 helang版权所有</h4>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        /*jQuery对象添加  runNum  方法*/
+        $.fn.extend({
+            /*
+                *	滚动数字
+                *	@ val 值，	params 参数对象
+                *	params{addMin(随机最小值),addMax(随机最大值),interval(动画间隔),speed(动画滚动速度),width(列宽),height(行高)}
+            */
+            runNum:function (val,params,fun) {
+                /*初始化动画参数*/
+                // function fun () {
+                //     console.log(1);
+                // }
+                console.log(params);
+                var valString = val
+                var par= params || {};
+                var runNumJson={
+                    el:$(this),
+                    value:valString,
+                    valueTo:par.to,
+                    valueStr:valString.toString(10),
+                    width:par.width || 40,
+                    height:par.height || 50,
+                    addMin:par.addMin || 10000,
+                    addMax:par.addMax || 99999,
+                    interval:par.interval || 3000,
+                    finishFun:fun,
+                    speed:par.speed || 4000,
+                    lengthbefore:valString.toString(10).length,
+                    lengthafter:par.to.toString(10).length,
+                    textArr:par.textArr || [0,1,2,3,4,5,6,7,8,9]
+                };
+                $._runNum._list(runNumJson.el,runNumJson);
+                $._runNum._interval(runNumJson.el.children("li"),runNumJson,fun);
+            }
+        });
+        /*jQuery对象添加  _runNum  属性*/
+        $._runNum={
+            /*初始化数字列表*/
+            _list:function (el,json) {
+                // let length = 0;
+
+                // if(json.lengthbefore < json.lengthafter){
+                //     length = json.lengthafter
+                // }else {
+                //     length = json.lengthbefore
+                // }
+                var str='';
+                for(var i=0; i<json.lengthbefore;i++){
+                    var w=json.width*i;
+                    var t=json.height*parseInt(json.valueStr[i]);
+                    var h=json.height*10;
+                    str +='<li style="width:'+json.width+'px;left:'+w+'px;top: '+-t+'px;height:'+h+'px;">';
+                    for(var j=0;j<10;j++){
+                        str+='<div style="height:'+json.height+'px;line-height:'+json.height+'px;">'+json.textArr[j]+'</div>';
+                    }
+                    str+='</li>';
+                }
+                el.html(str);
+            },
+            // /*生成随即数*/
+            // _random:function (json) {
+            //     var Range = json.addMax - json.addMin;
+            //     var Rand = Math.random();
+            //     var num=json.addMin + Math.round(Rand * Range);
+            //     return num;
+            // },
+            /*执行动画效果*/
+            _animate:function (value,json,fun) {
+                for(var x=0;x<json.lengthafter;x++){
+                    var topPx=value[x]*json.height;
+                    $('#test').children('li').eq(x).animate({top:-topPx+'px'},json.speed,'swing',function () {
+                        // console.log(1);
+                    });
+                }
+                console.log(1);
+                setTimeout(fun,2001)
+            },
+            /*定期刷新动画列表*/
+            _interval:function (el,json,fun) {
+                var val=json.value;
+                setTimeout(function () {
+                    // val+=$._runNum._random(json);
+                    val = json.valueTo;
+                    $._runNum._addOrdel(el,json);
+                    $._runNum._animate(val.toString(10),json,fun);
+                },json.interval);
+
+            },
+            // 增加或者删除li
+            _addOrdel:function (el,json) {
+                // console.log(el,json);
+                let dvalue =Math.abs(json.lengthafter - json.lengthbefore);
+                let str = '';
+                if(json.lengthbefore < json.lengthafter){
+                    for(var i=1; i<dvalue+1;i++){
+                        var w=json.width*(i+json.lengthbefore-1);
+                        var h=json.height*10;
+                        str +='<li style="width:'+json.width+'px;left:'+w+'px;top: 0px;height:'+h+'px;">';
+                        for(var j=0;j<10;j++){
+                            str+='<div style="height:'+json.height+'px;line-height:'+json.height+'px;">'+json.textArr[j]+'</div>';
+                        }
+                        str+='</li>';
+                    }
+                    $('#test').append(str)
+                    // $._runNum._animate(val.toString(10),json,fun);
+
+                }else {
+                    for(let i = 1;i<dvalue+1;i++){
+                        el.eq(json.lengthbefore - i).remove();
+                    }
+                    // $._runNum._animate(val.toString(10),json,fun);
+                }
+            }
+        }
+    })(jQuery);
+</script>
+<script type="text/javascript">
+    function fin() {
+        console.log(1);
+    }
+    var toValue = 0;
+    var fromValue = 0;
+    $('#send').click(()=>{
+        this.toValue =$('#toValue').val();
+        $("#test").runNum(this.fromValue,{
+            to:this.toValue,
+            speed:1000,
+            interval:2000,
+
+        });
+        this.fromValue = this.toValue;
+    })
+    // $("#test").runNum(0,{
+    //     speed:2000,
+    //     to:0
+    // });
+
+</script>
+</body>
+</html>

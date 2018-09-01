@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>throttle</title>
+</head>
+<body>
+<div id="demo"></div>
+<script>
+    var COUNT = 0;
+    var demo = document.getElementById('demo');
+    function testFn() {
+        demo.innerHTML += 'testFN 被调用了 ' + ++COUNT + '次<br>';     }
+
+    // version1: -> 错误 timer不是相对全局的变量每次resize会生成一个timer
+    // window.onresize = function () {
+    //     var timer = null;
+    //     clearTimeout(timer);
+
+    //     timer = setTimeout(function() {
+    //         testFn();
+    //     }, 100);
+    // };
+
+    // version2: -> 正确， 但是会多添加一个相对全局的变量
+    // var timer = null;
+    // window.onresize = function () {
+    //     clearTimeout(timer);
+    //     timer = setTimeout(function() {
+    //         testFn();
+    //     }, 100);
+    // };
+
+    // version3: -> 正确，但是到目前为至还有一个问题，如果不简短的出发resize的话fn是永远不会执行的
+    /**
+     * 函数节流方法
+     * @param Function fn 延时调用函数
+     * @param Number delay 延迟多长时间
+     * @return Function 延迟执行的方法
+     */
+
+    // var throttle = function (fn, delay) {
+    //     var timer = null;
+
+    //     return function () {
+    //         clearTimeout(timer);
+    //         timer = setTimeout(function() {
+    //             fn();
+    //         }, delay);
+    //     }
+    // };
+
+    // var f = throttle(testFn, 200);
+    // window.onresize = function () {
+    //     f();
+    // };
+
+    // window.onresize = throttle(testFn, 200);
+
+    // version4: 第一次执行没问题，后来的resize不正常
+    // var throttle = function (fn, delay, atleast) {
+    //     var timer = null;
+    //     var previous = 0;
+
+    //     return function () {
+    //         var now = +new Date();
+
+    //         if ( !previous ) previous = now;
+
+    //         if ( now - previous > atleast ) {
+    //             fn();
+    //         } else {
+    //             clearTimeout(timer);
+    //             timer = setTimeout(function() {
+    //                 fn();
+    //             }, delay);
+    //         }
+    //     }
+    // };
+
+    // window.onresize = throttle(testFn, 200, 1000);
+
+    /**
+     * 函数节流方法
+     * @param Function fn 延时调用函数
+     * @param Number delay 延迟多长时间
+     * @param Number atleast 至少多长时间触发一次
+     * @return Function 延迟执行的方法
+     */
+        // var throttle = function (fn, delay, atleast) {
+        //     var timer = null;
+        //     var previous = null;
+        //
+        //     return function () {
+        //         var now = +new Date();
+        //
+        //         if ( !previous ) previous = now;
+        //
+        //         if ( now - previous > atleast ) {
+        //             fn();
+        //             // 重置上一次开始时间为本次结束时间
+        //             previous = now;
+        //         } else {
+        //             clearTimeout(timer);
+        //             timer = setTimeout(function() {
+        //                 fn();
+        //             }, delay);
+        //         }
+        //     }
+        // };
+
+        // window.onresize = throttle(testFn, 200, 1000);
+
+
+        var throttle = function (fn, delay, atleast) {
+            var timer = null;
+            var previous = null;
+
+            return function () {
+                var now = +new Date();
+
+                if ( !previous ) previous = now;
+
+                if ( now - previous > atleast ) {
+                    fn();
+                    // 重置上一次开始时间为本次结束时间
+                    previous = now;
+                    clearTimeout(timer);
+                } else {
+                    clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        fn();
+                        previous = null;
+                    }, delay);
+                }
+            }
+        };
+
+        window.onresize = throttle(testFn, 1000, 1500);
+
+    // var throttle = function (fn, delay, atleast) {
+    //         this.fn      = fn;
+    //         this.delay   = delay;
+    //         this.atleast = atleast;
+    //
+    //         this.init();
+    //     };
+    //
+    // throttle.prototype = {
+    //     init: function () {
+    //         this.previous = null;
+    //         this.timer = null;
+    //     },
+    //     detect: function () {
+    //
+    //         // let now = +new Date();
+    //         // // console.log(!this.previous);
+    //         // if ( !this.previous ) this.previous = now;
+    //         //
+    //         // // 如果上一次与本次的时间差大于最小触发值，就走最小触发值的逻辑
+    //         // // 否则走 timeout 的逻辑
+    //         // if ( now - this.previous > this.atleast ) {
+    //         //     this.atleastCond();
+    //         // } else {
+    //         //     this.timeoutCond();
+    //         // }
+    //
+    //         let now = new Date();
+    //         if(this.previous===null) this.previous = now
+    //         if(now - this.previous > this.atleast){
+    //             this.fn;
+    //             this.previous = new Date();
+    //         }else {
+    //             clearTimeout(this.timer);
+    //             let timer = setTimeout(()=>{
+    //                 this.fn();
+    //             },this.delay)
+    //         }
+    //     },
+    //     atleastCond: function () {
+    //         this.fn();
+    //         this.previous = +new Date();
+    //     },
+    //     timeoutCond: function () {
+    //         var _this = this;
+    //
+    //         clearTimeout(this.timer);
+    //         this.timer = setTimeout(function() {
+    //             _this.fn()
+    //             _this.previous = null;
+    //         }, this.delay);
+    //     }
+    // };
+    //
+    // var th = new throttle(testFn, 200,1000);
+    // window.onresize = function () {
+    //     th.detect()
+    // };
+
+</script>
+</body>
+</html>

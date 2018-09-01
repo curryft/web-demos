@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+         a {
+            color: rgba(255, 255, 255, 0.8);
+            color: #fff ;
+            display: inline-block;
+            width: 100%;
+            line-height: 2.25em;
+            height: 2.25em;
+            border: 2px solid rgba(255, 255, 255, 0.33);
+            margin: .44em 0 .44em -2px;
+            position: relative;
+             text-decoration: none;
+        }
+          a em {
+             position: absolute;
+             top: -1px;
+             left: -1px;
+             display: block;
+             width: 100%;
+             height: 2.25em;
+             overflow: hidden;
+             border: 2px solid #fff;
+             opacity: 0;
+         }
+
+          a:hover em {
+             opacity: .2;
+         }
+          a:hover em.em_1 {
+             -webkit-animation: cbtnem1 .75s linear;
+         }
+
+          a:hover em.em_2 {
+             -webkit-animation: cbtnem2 .5s linear;
+         }
+
+         @-webkit-keyframes cbtnem1 {
+             0% {
+                 -webkit-transform: scale(1, 1);
+                 -webkit-transform-origin: 40% 40%
+             }
+             50% {
+                 -webkit-transform: scale(1.12, 1.4);
+                 -webkit-transform-origin: 40% 40%
+             }
+             100% {
+                 -webkit-transform: scale(1, 1);
+                 -webkit-transform-origin: 40% 40%
+             }
+         }
+
+         @-webkit-keyframes cbtnem2{
+             0%{-webkit-transform:scale(1,1);-webkit-transform-origin:40% 60%}
+             50%{-webkit-transform:scale(1.12,1.4);-webkit-transform-origin:40% 60%}
+             100%{-webkit-transform:scale(1,1);-webkit-transform-origin:40% 60%}
+         }
+
+         /*@-webkit-keyframes 'cbtnem3'{*/
+             /*0%{-webkit-transform:scale(1,1);-webkit-transform-origin:60% 60%}*/
+             /*50%{-webkit-transform:scale(1.12,1.4);-webkit-transform-origin:60% 60%}*/
+             /*100%{-webkit-transform:scale(1,1);-webkit-transform-origin:60% 60%}*/
+         /*}*/
+
+         /*@-webkit-keyframes 'cbtnem4'{*/
+             /*0%{-webkit-transform:scale(1,1);-webkit-transform-origin:60% 40%}*/
+             /*50%{-webkit-transform:scale(1.12,1.4);-webkit-transform-origin:60% 40%}*/
+             /*100%{-webkit-transform:scale(1,1);-webkit-transform-origin:60% 40%}*/
+         /*}*/
+
+         .wrap {
+             width: 64px;
+             height: 64px;
+             position: relative;
+         }
+
+         .outer {
+             position: absolute;
+             width: 100%;
+             height: 100%;
+             background: url(icon-spin-s.png) no-repeat;
+             animation: spin 800ms infinite linear;
+         }
+
+         .inner, .inner2 {
+             position: absolute;
+             width: 38px;
+             height: 38px;
+             border-radius: 40px;
+             overflow: hidden;
+             left: 13px;
+             top: 13px;
+         }
+
+         .inner {
+             opacity: 1;
+             background-color: #89abdd;
+             animation: second-half-hide 1.6s steps(1, end) infinite;
+         }
+
+         .inner2 {
+             opacity: 0;
+             background-color: #4b86db;
+             animation: second-half-show 1.6s steps(1, end) infinite;
+         }
+
+         .spiner, .filler, .masker {
+             position: absolute;
+             width: 50%;
+             height: 100%;
+         }
+
+         .spiner {
+             border-radius: 40px 0 0 40px;
+             background-color: #4b86db;
+             transform-origin: right center;
+             animation: spin 800ms infinite linear;
+             left: 0;
+             top: 0;
+         }
+
+         .filler {
+             border-radius: 0 40px 40px 0;
+             background-color: #4b86db;
+             animation: second-half-hide 800ms steps(1, end) infinite;
+             left: 50%;
+             top: 0;
+             opacity: 1;
+         }
+
+         .masker {
+             border-radius: 40px 0 0 40px;
+             background-color: #89abdd;
+             animation: second-half-show 800ms steps(1, end) infinite;
+             left: 0;
+             top: 0;
+             opacity: 0;
+         }
+
+         .inner2 .spiner, .inner2 .filler {
+             background-color: #89abdd;
+         }
+
+         .inner2 .masker {
+             background-color: #4b86db;
+         }
+
+         @keyframes spin {
+             0% {
+                 transform: rotate(360deg);
+             }
+             100% {
+                 transform: rotate(0deg);
+             }
+         }
+
+         @keyframes second-half-hide {
+             0% {
+                 opacity: 1;
+             }
+             50%, 100% {
+                 opacity: 0;
+             }
+         }
+
+         @keyframes second-half-show {
+             0% {
+                 opacity: 0;
+             }
+             50%, 100% {
+                 opacity: 1;
+             }
+         }
+         circle {
+             -webkit-transition: stroke-dasharray .25s;
+             transition: stroke-dasharray .25s;
+         }
+
+         path {
+             stroke-dasharray: 2000;
+             stroke-dashoffset: 2000;
+             -webkit-animation: dash 7s linear ;
+             animation: dash 7s linear ;
+             /*保持在最后一帧*/
+             animation-fill-mode: forwards;
+
+         }
+
+         @-webkit-keyframes dash {
+             to {
+                 stroke-dashoffset: 0;
+             }
+         }
+         @keyframes dash {
+             to {
+                 stroke-dashoffset: 0;
+             }
+         }
+
+
+    </style>
+</head>
+<body>
+<div style="height: 100vh;width: 100vw;background-color: purple;display: flex;align-items: center;justify-content: center">
+<div style="background-color: purple;width: 300px;text-align: center;font-size: 17px;">
+    <a href="">
+        <span>Tdsddsds</span>
+        <em class="em_1"></em>
+        <em class="em_2"></em>
+    </a>
+
+</div>
+
+
+</div>
+
+<div class="wrap">
+    <div class="outer"></div>
+    <div class="inner">
+        <div class="spiner"></div>
+        <div class="filler"></div>
+        <div class="masker"></div>
+    </div>
+    <div class="inner2">
+        <div class="spiner"></div>
+        <div class="filler"></div>
+        <div class="masker"></div>
+    </div>
+</div>
+
+
+<!--进度条-->
+<svg width="440" height="440" viewbox="0 0 440 440">
+    <circle cx="220" cy="220" r="170" stroke-width="5" stroke="#D1D3D7" fill="none" stroke-dasharray="2,2"></circle>
+    <circle cx="220" cy="220" r="170" stroke-width="5" stroke="#00A5E0" fill="none" transform="matrix(0,-1,1,0,0,440)" stroke-dasharray="0 1069 "></circle>
+</svg>
+
+<p>拖我：<input id="range" type="range" min="0" max="100" value="0" style="width:300px;"></p>
+
+<svg width="200px" height="200px" style="position: relative;left: 50vw;bottom: 30vh">
+    <circle r="20" cx="100" cy="100" fill="#fff" stroke="#2492fc" stroke-width="2px" style="">
+        <animate attributeName="r" from="20" to="25" dur="0.3s"  fill="freeze" class="magnify"/>
+        <animate attributeName="r" from="25" to="20" dur="0.3s"  fill="freeze" class="shrink"/>
+
+    </circle>
+    <circle r="10" cx="100" cy="100" fill="#2492fc" style="opacity:0;" id="innerCir" onmouseover="show(this)" onmouseout="show1(this)" style="z-index: -1"  onclick="alert(1)" >
+
+    </circle>
+</svg>
+
+<!--马-->
+<svg width="360" height="200" xmlns="http://www.w3.org/2000/svg">
+    <text font-family="microsoft yahei" font-size="40" x="0" y="0" fill="#cd0000">马
+        <animateMotion path="m43.5,225c0,0 2.11237,-0.54706 7,-2c5.16191,-1.53448 8.62532,-6.41362 13,-10c2.78832,-2.28587 6.72399,-7.22273 10,-11c2.77979,-3.20512 6.16796,-6.92033 8,-11c2.20606,-4.91257 4,-10 5,-14c1,-4 1.84723,-7.04132 3,-11c0.88413,-3.03616 2.08557,-5.96394 5,-13c2.06081,-4.97525 7.87181,-15.08954 10,-18c3.77946,-5.16872 7.74674,-8.37135 12,-11c3.80423,-2.35114 7.90778,-3.49622 12,-4c4.96254,-0.61092 8.90437,-0.81383 14,-1c8.05688,-0.29437 12.68471,3.12685 18,8c4.71974,4.32713 6.64886,10.19577 9,14c2.62866,4.25325 3.23463,8.15224 4,10c1.0824,2.61313 3.18834,5.94366 4,9c1.30876,4.92821 1.96855,11.41208 4,15c2.09035,3.69194 6.07843,4.78986 9,6c2.06586,0.85571 6,3 8,5c2,2 3.59399,3.513 6,5c2.68999,1.66251 7.133,1.5695 11,3c2.09717,0.7758 5.133,0.5695 9,2c2.09717,0.7758 6,1 10,1c3,0 6.186,0.30745 8,-1c5.73634,-4.13452 8.76952,-8.39099 11,-12c1.66251,-2.68999 1.79393,-6.08743 4,-11c1.83203,-4.07967 3.28265,-7.82971 5,-11c3.62744,-6.6964 5.4588,-10.69344 6,-12c0.76538,-1.84776 2.3764,-3.08031 4,-7c0.38269,-0.92387 3.53165,-5.51703 9,-10c5.57666,-4.57176 17.77173,-11.3853 26,-16c3.90057,-2.18758 7.03873,-3.48055 10,-3c3.12143,0.50654 5.797,1.2565 7,2c2.69,1.66251 6.29871,1.82108 8,5c0.94373,1.76335 1.37134,6.74674 4,11c2.35114,3.80423 4.48627,7.82375 5,10c0.91901,3.89299 1.49622,7.90779 2,12c0.73309,5.95505 0.03552,9.50424 3,14c0.7785,1.18065 -12,39 -13,42c-1,3 -1.5405,5.0535 -2,7c-0.51373,2.17625 -2.68927,5.08025 -2,8c0.51373,2.17625 1,4 1,7c0,2 0,4 0,5c0,1 0,2 0,4c0,1 0,2 0,3l0,1l0,2l0,0" begin="0s" dur="5s" rotate="auto" repeatCount="indefinite"/>
+    </text>
+    <!--<path d="M10,80 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />-->
+    <path stroke-dasharray="2,2"
+          d="m43.5,225c0,0 2.11237,-0.54706 7,-2c5.16191,-1.53448 8.62532,-6.41362 13,-10c2.78832,-2.28587 6.72399,-7.22273 10,-11c2.77979,-3.20512 6.16796,-6.92033 8,-11c2.20606,-4.91257 4,-10 5,-14c1,-4 1.84723,-7.04132 3,-11c0.88413,-3.03616 2.08557,-5.96394 5,-13c2.06081,-4.97525 7.87181,-15.08954 10,-18c3.77946,-5.16872 7.74674,-8.37135 12,-11c3.80423,-2.35114 7.90778,-3.49622 12,-4c4.96254,-0.61092 8.90437,-0.81383 14,-1c8.05688,-0.29437 12.68471,3.12685 18,8c4.71974,4.32713 6.64886,10.19577 9,14c2.62866,4.25325 3.23463,8.15224 4,10c1.0824,2.61313 3.18834,5.94366 4,9c1.30876,4.92821 1.96855,11.41208 4,15c2.09035,3.69194 6.07843,4.78986 9,6c2.06586,0.85571 6,3 8,5c2,2 3.59399,3.513 6,5c2.68999,1.66251 7.133,1.5695 11,3c2.09717,0.7758 5.133,0.5695 9,2c2.09717,0.7758 6,1 10,1c3,0 6.186,0.30745 8,-1c5.73634,-4.13452 8.76952,-8.39099 11,-12c1.66251,-2.68999 1.79393,-6.08743 4,-11c1.83203,-4.07967 3.28265,-7.82971 5,-11c3.62744,-6.6964 5.4588,-10.69344 6,-12c0.76538,-1.84776 2.3764,-3.08031 4,-7c0.38269,-0.92387 3.53165,-5.51703 9,-10c5.57666,-4.57176 17.77173,-11.3853 26,-16c3.90057,-2.18758 7.03873,-3.48055 10,-3c3.12143,0.50654 5.797,1.2565 7,2c2.69,1.66251 6.29871,1.82108 8,5c0.94373,1.76335 1.37134,6.74674 4,11c2.35114,3.80423 4.48627,7.82375 5,10c0.91901,3.89299 1.49622,7.90779 2,12c0.73309,5.95505 0.03552,9.50424 3,14c0.7785,1.18065 -12,39 -13,42c-1,3 -1.5405,5.0535 -2,7c-0.51373,2.17625 -2.68927,5.08025 -2,8c0.51373,2.17625 1,4 1,7c0,2 0,4 0,5c0,1 0,2 0,4c0,1 0,2 0,3l0,1l0,2l0,0"
+          id="svg_4" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="none"/>
+</svg>
+
+
+<!--呼吸效果-->
+<svg width="200px" height="200px" version="1.1"  xmlns="http://www.w3.org/2000/svg" style="background:url(./home-black-bg.jpg);background-size: cover;background-position: center">
+    <ellipse id="SvgjsEllipse1164" rx="4.5" ry="4.5" cx="100" cy="100"
+             fill="rgba(72,240,255)">
+    </ellipse>
+    <ellipse id="SvgjsEllipse1164" rx="0" ry="0" cx="100" cy="100"
+             fill="rgba(255,255,255,0.4)" opacity="1" stroke="rgba(255,255,255,0.5)">
+        <animate attributeName="rx" from="2" to="40" dur="1.5s" repeatCount="indefinite"></animate>
+        <animate attributeName="ry" from="2" to="40" dur="1.5s" repeatCount="indefinite"></animate>
+        <animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite"></animate>
+    </ellipse>
+    <ellipse id="SvgjsEllipse1164" rx="0" ry="0" cx="100" cy="100"
+             fill="rgba(255,255,255,0.4)" opacity="1" stroke="rgba(255,255,255,0.5)">
+        <animate attributeName="rx" from="0" to="25" dur="1.5s" repeatCount="indefinite"></animate>
+        <animate attributeName="ry" from="0" to="25" dur="1.5s" repeatCount="indefinite"></animate>
+        <animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite"></animate>
+    </ellipse>
+
+</svg>
+
+
+
+<svg width="100vw" height="500px" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     style="background:url(./home-black-bg.jpg);background-size: cover;background-position: center">
+
+    <polygon points="220,100 300,210 170,250 " fill="rgba(255,255,255,0)" onmouseover="showline1(this)" onmouseout="showline(this)" id="poly1"></polygon>
+        <line id="SvgjsLine1361" x1="220" y1="100" x2="220" y2="100"
+              stroke="rgba(255,255,255,0.3"  stroke-width="1">
+            <animate attributeName="x2" from="220" to="170" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+            <animate attributeName="y2" from="100" to="250" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+            <animate attributeName="x2" from="170" to="220" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+            <animate attributeName="y2" from="250" to="100" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+        </line>
+
+        <line id="SvgjsLine1362" x1="300" y1="210" x2="300" y2="210"
+          stroke="rgba(255,255,255,0.3"  stroke-width="1">
+        <animate attributeName="x2" from="300" to="220" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+        <animate attributeName="y2" from="210" to="100" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+        <animate attributeName="x2" from="220" to="300" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+        <animate attributeName="y2" from="100" to="210" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+        </line>
+
+        <line id="SvgjsLine1363" x1="170" y1="250" x2="170" y2="250"
+          stroke="rgba(255,255,255,0.3"  stroke-width="1">
+        <animate attributeName="x2" from="170" to="300" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+        <animate attributeName="y2" from="250" to="210" dur="1s" begin="poly1.mouseover+0.5s" fill="freeze"></animate>
+        <animate attributeName="x2" from="300" to="170" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+        <animate attributeName="y2" from="210" to="250" dur="0.0001s" begin="poly1.mouseout" fill="freeze"></animate>
+        </line>
+
+
+
+</svg>
+
+<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <path
+            d="m71.5,109c0,0 0,0 0,0c1,0 2.72399,3.22273 6,7c2.77979,3.20512 6,6 8,9c2,3 4,6 7,9c2,2 3.19028,3.88152 5,7c1.12234,1.93399 2.4588,3.69344 3,5c0.38268,0.92387 1,2 1,2c0,0 0.52573,1.14935 0,2c-1.17557,1.90211 -2.5387,4.60643 -5,6c-3.58793,2.03145 -8.87856,2.49345 -12,3c-1.97417,0.32036 -4.87856,0.49345 -8,1c-2.96127,0.48055 -6,0 -8,0c-1,0 -2.30656,0.4588 -1,1c1.84776,0.76537 8.02206,0.16295 16,-1c12.03829,-1.75484 25.15015,-4.24664 37,-7c10.1694,-2.3629 15.87856,-6.49345 19,-7c1.97418,-0.32036 5,0 6,0c1,0 1.08769,3.03067 0,6c-1.85226,5.05659 -3.21005,8.85075 -6,13c-3.2536,4.83881 -7.73325,10.23274 -13,16c-4.7683,5.22144 -11.04294,8.92577 -18,13c-5.03162,2.94666 -10.88137,6.2935 -18,9c-8.86755,3.37143 -15.87856,4.49345 -19,5c-1.97417,0.32036 -3,-1 -3,-1c0,-2 -1.0557,-6.39223 2,-13c3.02674,-6.54514 7.72962,-13.22885 12,-18c4.71584,-5.26884 8,-9 9,-9c0,0 0.91231,0.03067 2,3c1.85227,5.05659 6.16221,11.93268 9,19c3.18367,7.9287 5.76142,13.14183 10,20c3.7911,6.13412 7.69344,11.4588 9,12c0.92388,0.38269 3,-3 6,-6c5,-5 10.34457,-8.74283 14,-14c6.65758,-9.5748 9.91896,-17.05859 15,-24c2.95329,-4.03461 5,-8 5,-8c1,0 0.83981,0.0289 2,6c1.75847,9.05029 3.51962,18.07481 5,26c0.75708,4.05301 1.22975,4.97325 1,4c-0.51375,-2.17625 -0.54219,-10.04932 1,-24c2.22211,-20.1013 7.21011,-34.93719 11,-48c3.17696,-10.9502 5.49345,-15.87856 6,-19c0.16019,-0.98709 0,-1 1,2c1,3 3.47545,9.86194 5,16c1.46626,5.9034 2.51564,13.06711 4,22c1.51126,9.09483 2.93839,18.00706 4,27c0.94519,8.00667 3.49829,14.93796 4,21c0.32993,3.98637 0.49756,6.9258 1,12c0.39415,3.98053 0.49623,8.90779 1,13c0.48874,3.97003 1,10 1,14c0,3 0.48625,4.82375 1,7c0.4595,1.9465 0,3 0,3l-1,-3l-1,-1"
+            id="svg_11" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="none"/>
+        <path
+            d="m245.5,147c0,0 0,-1 0,-1c4,0 11.05182,-1.61073 20,-3c10.0773,-1.56456 22.841,-6.72876 35,-9c7.92517,-1.48038 14,-2 20,-2c5,0 9,0 9,0c0,0 1,-1 1,-1c0,-1 -0.71411,-2.21167 -3,-5c-3.5864,-4.37469 -6.5582,-7.51929 -10,-10c-3.62799,-2.61491 -6,-5 -9,-10c-3,-5 -5.48627,-9.82375 -6,-12c-0.22977,-0.97325 0,-1 0,-1c0,2 1,8 1,17c0,10 1.49924,19.95847 2,29c0.44241,7.98776 -1,16 -1,24c0,7 0.41422,11.58578 -1,13c-0.70709,0.70711 -0.47427,-0.14935 -1,-1c-1.17557,-1.90211 -6,-3 -10,-5c-2,-1 -2.99249,-1.12218 -2,-1c4.09222,0.50377 12.92255,-0.41734 28,-3c13.93912,-2.38766 31,2 31,-3c0,-1 -2.93268,1.1622 -10,4c-7.92871,3.18367 -18.06604,6.84821 -32,13c-11.05368,4.88016 -17.69345,9.5412 -19,9c-0.92389,-0.38269 0,-2 0,-3c0,0 1.65469,4.03583 1,10c-1.00601,9.16449 -5.22342,19.46065 -12,30c-5.40829,8.41132 -13.67072,14.72147 -24,19c-5.84312,2.4203 -6,3 -6,3c0,-2 4.89246,-7.16455 14,-13c12.85248,-8.23492 28.80801,-15.82312 38,-23c3.34409,-2.61098 4,-3 4,-3c0,7 0.51276,16.06078 2,26c1.50919,10.08575 7.20782,20.93068 15,23c10.6315,2.82333 20.54559,-3.87589 26,-13c4.38397,-7.33353 5,-12 5,-15c0,-3 -1.20697,-6.57133 -5,-11c-5.08054,-5.93195 -16.05182,-9.61073 -25,-11c-5.03867,-0.78229 -6,-1 -6,-1c0,0 0,0 0,0c1,0 2.46585,1.7485 5,7c3.71323,7.69493 5.71899,13.31021 9,16c2.78833,2.28587 6.08026,2.31075 9,3c2.17624,0.51375 2.35928,-0.05165 3,-4c1.01309,-6.24289 3.4733,-12.29366 7,-18c2.62866,-4.25325 4,-5 4,-5c1,0 2,1 5,4c3,3 6,6 8,10c2,4 3.75644,8.07217 3,12c-1.01837,5.28799 -3.69345,8.4588 -5,9c-0.92389,0.38269 -1,-1 -1,-4l1,-2"
+            id="svg_12" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="none"/>
+        <path
+            d="m393.5,144c0,-1 0,-1 0,-1c4,-1 14.04489,-1.43967 30,-3c15.06088,-1.47289 24,-3 26,-3c0,0 -1.19028,1.88152 -3,5c-2.24469,3.868 -6,7 -16,12c-12,6 -22.8176,12.43861 -32,16c-5.89658,2.28699 -8,3 -8,3c4,0 16.03955,-0.39357 36,-2c27.07861,-2.17931 46.12711,-3.9259 49,-9c0.49271,-0.87019 -2,-2 -5,-5c-4,-4 -10.96881,-11.03522 -20,-19c-7.9726,-7.03119 -13.97449,-11.02051 -18,-16c-2.81152,-3.47783 -2.23462,-7.15224 -3,-9c-0.5412,-1.30656 -0.3107,0.00966 0,5c0.50098,8.04668 1.38187,22.00562 1,35c-0.50021,17.02203 -2,32.96432 -2,47c0,14.03568 1,23 1,24c0,0 -2.1604,-2.96329 -3,-7c-1.23862,-5.95532 -2.91901,-11.10701 -2,-15c0.51373,-2.17625 1,-4 1,-6c0,-1 0.00485,-1.09854 1,-1c5.07422,0.50244 17.19321,2.93253 29,0c6.13806,-1.52455 7.09222,-2.49623 3,-3c-8.93256,-1.09966 -21.00562,1.44958 -39,1c-20.01874,-0.50015 -29.82443,-2.09789 -31,-4c-0.52573,-0.85065 -0.70709,-3.29289 0,-4c0.70709,-0.70711 1.2565,1.797 2,3c1.66251,2.68999 3.64554,10.80998 6,20c2.77475,10.83055 5.29611,19.45673 3,25c-1.0824,2.61313 -3,5 -5,5c-1,0 -2.48627,-0.82375 -3,-3c-0.68927,-2.91975 1.7464,-9.16119 5,-14c2.78995,-4.14925 4.82376,-6.48625 7,-7c0.97324,-0.22975 1,1 3,3c3,3 7,6 14,10c7,4 16.85739,9.46765 26,12c8.88501,2.461 14.94342,3.14774 20,5c5.93866,2.17538 15,3 24,3c13,0 27.25055,1.10837 34,-1c2.13434,-0.66672 0.5412,-1.69344 0,-3c-0.38269,-0.92387 -0.93921,-5.02475 -3,-10c-2.91443,-7.03606 -5.11212,-13.9183 -8,-18c-4.16495,-5.8867 -8.6514,-13.21106 -13,-20c-4.63989,-7.24371 -8.37256,-15.3036 -12,-22c-3.43469,-6.34058 -6.37256,-14.3036 -10,-21c-3.43469,-6.34058 -7.48627,-10.82375 -8,-13c-0.22977,-0.97325 0.98718,-1.0527 5,-2c8.9729,-2.11821 20.43738,-3.92282 27,-10c4.27829,-3.96184 4,-7 5,-8c0,0 0.80615,4.03044 2,11c1.72177,10.05164 2.27524,24.02238 1,38c-0.82275,9.01793 -2.82376,13.48625 -5,14c-1.9465,0.4595 -6.6965,-1.272 -13,-8c-6.8371,-7.29753 -10.8009,-17.06456 -10,-22c0.50653,-3.12144 2.1731,-4.14726 3,-3c2.6149,3.62799 6.76199,13.14204 5,24c-1.51962,9.36433 -7.20551,18.07597 -15,23c-8.32654,5.26013 -13.14935,6.52573 -14,6c-1.9021,-1.17557 0.64749,-5.97252 5,-7c0.97324,-0.22975 3.29349,1.88138 6,9c3.37143,8.86755 5,18 5,22c0,1 0.21014,0.92157 -1,-2c-1.71143,-4.13171 -5.36584,-12.33646 -3,-19c1.95093,-5.4949 7.70624,-9.3768 14,-10c8.02301,-0.79443 14.70892,3.50739 18,9c3.91434,6.53284 6.91339,12.3806 5,17c-1.6236,3.91969 -4,6 -5,7c0,0 -0.21725,-0.56868 7,-3c15.62939,-5.26517 37.96753,-9.49335 48,-17c1.13232,-0.84724 0,-1 -4,1c-2,1 -4,2 -4,2c0,0 -1,0 -4,2l-3,2l-3,1l0,0"
+            id="svg_13" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="none"/>
+    </g>
+</svg>
+
+
+<div id="cir"></div>
+<input type="file" id="input">
+</body>
+<script src="./js/jquery.js"></script>
+<script>
+
+    function showline(x) {
+        let line1 = document.getElementById('SvgjsLine1361');
+
+        // setInterval(()=>{
+        //     let x2 = line1.getAttribute('x2')
+        //     line1.setAttribute('x2',x2-10);
+        //     let y2 = line1.getAttribute('y2')
+        //     line1.setAttribute('y2',y2+20);
+        // },300)
+
+
+    }
+
+    function showline1(x) {
+        let line1 = document.getElementById('SvgjsLine1361');
+        line1.style.cssText = 'opacity:1'
+        console.log(line1.style.opacity);
+        // line1.setAttribute('x2',220);
+        // line1.setAttribute('y2',100);
+        // line1.children[0].beginElement();
+        // line1.children[1].beginElement();
+        // line1.style.opacity = 0.3;
+        // line1.x2.animVal.value = 170;
+        // line1.y2.animVal.value = 250;
+    }
+
+    function show(x) {
+        console.log(1);
+        x.style.opacity = 1;
+        document.querySelector('.magnify').beginElement();
+    }
+    function show1(x) {
+        console.log(2);
+        x.style.opacity = 0;
+        document.querySelector('.shrink').beginElement();
+    }
+
+    // function handleResponse(res) {
+    //     console.log(res);
+    // }
+    // var script = document.createElement("script");
+    // script.src = "http://www.baidu.com/json/?callback=handleResponse";
+    // document.body.insertBefore(script,document.body.firstChild)
+    $.ajax({
+        url: "",
+        type: "GET",
+        dataType: "jsonp", //指定服务器返回的数据类型
+        success: function (data) {
+            var result = JSON.stringify(data); //json对象转成字符串
+            console.log(result);
+        }
+    });
+
+    <!---->
+//    let circle = document.querySelectorAll("circle")[1];
+//    let i = 0;
+//    setInterval(()=>{
+//        i +=230;
+//        if(i<=920){
+//            circle.setAttribute('stroke-dasharray', i + " " + 1069);
+//            console.log(circle.getAttribute('stroke-dasharray'));
+//        }else {
+//            clearInterval(this)
+//        }
+//
+//    },2000)
+
+    // if (window.addEventListener) {
+    //     var range = document.querySelector("#range"), circle = document.querySelectorAll("circle")[1];
+    //     let i = 0;
+    //
+    //     if (range && circle) {
+    //         range.addEventListener("change", function() {
+    //             var percent = this.value / 100, perimeter = Math.PI * 2 * 170;
+    //             setInterval(()=>{
+    //
+    //                 circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1- percent));
+    //             })
+    //
+    //         });
+    //     }
+    // }
+</script>
+</html>
+
+<!--<animate>标签-->
+
+    <!--该标签用于基本动画。-->
+
+    <!--参数	描述-->
+    <!--attributeName	要变化属性名称-->
+    <!--1.可以是元素直接暴露的属性-->
+    <!--2.可以是CSS属性-->
+    <!--attributeType 	用来表明attributeName属性值的类型-->
+    <!--支持三个固定参数，CSS/XML/auto，默认值auto。-->
+    <!--例如：x、 y以及transform就属于XML, opacity就属于CSS。-->
+    <!--from	起始值-->
+    <!--起始值与元素的默认值是一样的，该参数可省略。-->
+    <!--to	结束值-->
+    <!--by	相对from的变化值-->
+    <!--PS：当有to值时，该值无效。-->
+    <!--values	动画的多个关键值，用分号分隔。-->
+    <!--dur	持续时间-->
+    <!--取值：常规时间值 | "indefinite"-->
+    <!--repeatCount	动画执行次数-->
+    <!--取值：合法数值或者“indefinite”-->
+    <!--fill	动画间隙的填充方式-->
+    <!--取值：freeze | remove（默认值）。-->
+    <!--remove：表示动画结束直接回到开始的地方。-->
+    <!--freeze：表示动画结束后保持了动画结束之后的状态。-->
+    <!--calcMode	控制动画的快慢-->
+    <!--取值：discrete | linear（默认值） | paced | spline.-->
+    <!--中文意思分别是：“离散”|“线性”|“踏步”|“样条”。-->
+    <!--另外，该参数要结合keyTimes、keySplines使用，数值的是对应values的，-->
+    <!--所以如果没有设置values和keyTime或keySplines，是没有效果的。-->
+    <!--begin	动画开始的时机，取值：-->
+    <!--time-value | offset-value | syncbase-value | event-value | repeat-value |-->
+    <!--accessKey-value | media-marker-value | wallclock-sync-value | "indefinite"-->
+    <!--1. time-value：动画开始时间，可传多个值，分号分隔。-->
+    <!--2. syncbase-value：[元素的id].begin/end +/- 时间值（offset-value）-->
+    <!--某个动画效果开始或结束触发此动画的，可加上偏移量。-->
+    <!--3. event-value：事件触发-->
+    <!--4. repeat-value：指某animation重复多少次开始。-->
+    <!--语法为：[元素的id].repeat(整数) +/- 时间值-->
+    <!--end	end与begin除了名字和字面含义不一样，其值的种类与表意都是一模一样的。-->

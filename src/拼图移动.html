@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        .box {
+            margin: auto;
+            width: 490px;
+            height: 340px;
+            border: 1px solid #000000;
+            position: relative;
+        }
+
+        div.item {
+            width: 150px;
+            height: 100px;
+            border-radius: 5px;
+            margin: 5px;
+            float: left;
+            background: goldenrod;
+            border: 1px solid lightgray;
+            z-index: 1;
+            text-align: center;
+            font-size: 30px;
+            line-height: 100px;
+            cursor: move;
+        }
+
+        div.moving {
+            border: 1px dashed gray;
+            background: transparent;
+        }
+
+        div.draging {
+            width: 150px;
+            height: 100px;
+            position: absolute;
+            background: goldenrod;
+            box-shadow: 0 0 2px 2px #555;
+            border-radius: 5px;
+            z-index: 500;
+        }
+        /*防止拖出小照片*/
+        img {
+            -webkit-user-drag: none;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="item"><img src="./images/an1.jpg" width="150" height="100"></div>
+    <div class="item"><img src="./images/an2.jpg" width="150" height="100"></div>
+    <div class="item"><img src="./images/an3.jpg" width="150" height="100"></div>
+    <div class="item"><img src="./images/2zhehzoa.jpg" width="150" height="100"></div>
+    <div class="item"><img src="./images/er.png" width="150" height="100"></div>
+    <div class="item"><img src="./images/coke_bg.jpg" width="150" height="100"></div>
+    <div class="item"><img src="./images/coke_can.png" width="150" height="100"></div>
+    <div class="item"><img src="./images/ready.png" width="150" height="100"></div>
+    <div class="item"><img src="./images/FirstScreen.jpg" width="150" height="100"></div>
+</div>
+</body>
+<script src="./js/jquery.js"></script>
+<script>
+    // 防止在释放的时候手抖 又执行了去抖函数
+    let isDragging = false;
+
+    //交换
+    function swap(from, to) {
+        const box = document.getElementsByClassName('box')[0];
+        const items = document.querySelectorAll('.item');
+        // 初始位置
+        const oriPositions = Array.prototype.map.call(items, e => {
+            const rect = e.getBoundingClientRect();
+            return {x: rect.x, y: rect.y}
+        });
+        const lastItem = items[from];
+        lastItem.remove();
+        box.insertBefore(lastItem, box.children[to]);
+
+        Array.prototype.forEach.call(items, (e, i) => {
+            const rect = e.getBoundingClientRect();
+            const delta = {
+                x: rect.x - oriPositions[i].x,
+                y: rect.y - oriPositions[i].y
+            };
+            e.style.transform = `translate(${-delta.x}px, ${-delta.y}px)`;
+            setTimeout(() => {
+                e.style.transition = `all .3s`;
+                // 设置为空就是返回移动之前的位置
+                e.style.transform = '';
+                // 防止下一次移动的时候在需要瞬间移动回原位的时候还有动画
+                setTimeout(() => {
+                    e.style.transition = '';
+                }, 300);
+            }, 0);
+        });
+    }
+
+    function performSwap(box, $clone) {
+        if (!isDragging) {
+            return;
+        }
+        var minIndex = $(box).index(); //最小索引赋初始值
+        var minValue = 1000; //初始化最小值，用来存储所有盒子的最小值
+        var from = $(box).index();
+        // 比较距离
+        $('.box div').not(':last').each(function () { //不包括克隆的那个盒子
+            var smalldistance = Math.sqrt(Math.pow($clone.position().left - $(this).position().left, 2) + Math.pow($clone.position().top - $(this).position().top, 2)); //利用勾股定理获取每一个盒子离克隆出来的盒子的距离
+            if (smalldistance < minValue) { //比较
+                minValue = smalldistance; //获取最小值
+                minIndex = $(this).index(); //获取最小值对应的索引
+            }
+        });
+        if (minIndex === $(box).index()) {
+            return
+        } else {
+            swap(from, minIndex);
+        }
+    }
+
+    performSwap = (function debounce(fn) {
+        // 去抖
+        let timerId = -1;
+        return function () {
+            if (timerId >= 0) {
+                clearTimeout(timerId);
+            }
+
+            const ctx = this, args = arguments;
+            timerId = setTimeout(() => {
+                fn.apply(ctx, args);
+            }, 50);
+        }
+    })(performSwap);
+
+    $('.box div').on('mousedown', function (e) {
+        isDragging = true;
+        var that = this;
+        var disx = e.offsetX;
+        var disy = e.offsetY;
+        var $clone = $(this).clone(); //克隆
+        $clone.addClass('draging').css({ //对克隆的盒子设置类名以及位置
+            left: $(this).position().left,
+            top: $(this).position().top
+        });
+        $('.box').append($clone); //追加到box里面
+        $(this).addClass('moving').html(''); //被克隆的元素添加类移除内容
+        function onMouseMove(e) {
+            $clone.css({
+                left: e.pageX - $('.box div').offset().left - disx,
+                top: e.pageY - $('.box div').offset().top - disy
+            });
+            performSwap(that, $clone);
+        }
+
+        document.body.addEventListener('mousemove', onMouseMove);
+        $('.box div').on('mouseup', function () {
+            isDragging = false;
+            $clone.animate($(that).position(),400,function () {
+                $(that).removeClass('moving').html($clone.html());
+                $clone.remove();
+                $('.box div').off('mouseup');
+                document.body.removeEventListener('mousemove', onMouseMove);
+            })
+        });
+    });
+
+
+</script>
+</html>
+
+
+
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul {
+            display: flex;
+            position: absolute;
+            width: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            list-style:none;
+        }
+
+        li {
+            position: relative;
+            padding: 20px;
+            font-size: 24px;
+            color: #000;
+            line-height: 1;
+            transition: 0.2s all linear;
+            cursor: pointer;
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            /*left: 100%;*/
+            right: 0;
+            width: 10px;
+            height: 100%;
+            border-bottom: 2px solid #000;
+            transition: 0.2s all linear;
+        }
+
+        li:hover::before {
+            width: 100%;
+            top: 0;
+            left: 0;
+            /*right: 100%;*/
+            transition-delay: 0.1s;
+            border-bottom-color: #000;
+            /*z-index: -1;*/
+        }
+
+        li:hover ~ li::before {
+            /*left: 0;*/
+            right: 100%;
+        }
+
+        li:active {
+            background: #000;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li>不可思议的CSS</li>
+        <li>导航栏</li>
+        <li>光标下划线跟随</li>
+        <li>PURE CSS</li>
+        <li>Coco</li>
+    </ul>
+</body>
+</html>
